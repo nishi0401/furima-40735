@@ -1,14 +1,13 @@
 class PurchaseRecordsController < ApplicationController
+  before_action :item_set, only: [:index, :create]
   before_action :move_to_other_pages, only: [:index]
 
   def index
-    @item = Item.find(params[:item_id])
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @purchase_record_address = PurchaseRecordAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @purchase_record_address = PurchaseRecordAddress.new(purchase_record_params)
     if @purchase_record_address.valid?
       pay_item
@@ -48,5 +47,9 @@ class PurchaseRecordsController < ApplicationController
     else
       redirect_to new_user_session_path
     end
+  end
+
+  def item_set
+    @item = Item.find(params[:item_id])
   end
 end
