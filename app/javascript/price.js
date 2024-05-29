@@ -1,5 +1,4 @@
-window.addEventListener('load', function(){
-
+const price = () => {
   const priceInput = document.getElementById("item-price");
   priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value;
@@ -8,4 +7,7 @@ window.addEventListener('load', function(){
     const profit = document.getElementById("profit");
     profit.innerHTML = Math.floor(inputValue - addTaxDom.innerHTML);
  })
-})
+};
+
+window.addEventListener('load', price)
+window.addEventListener("turbo:render", price);
